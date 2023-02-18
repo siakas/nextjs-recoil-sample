@@ -1,6 +1,8 @@
 import { css, Global } from '@emotion/react'
 import { colord } from 'colord'
-import { colors } from '@/styles/colors'
+import { map } from 'lodash-es'
+import { colors } from '@/styles'
+import 'sanitize.css'
 
 const toRgbValues = (hex: string) => {
   const rgba = colord(hex).toRgb()
