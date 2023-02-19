@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil'
 import AddTodoItem from '@/components/AddTodoItem'
+import TodoItem from '@/components/TodoItem'
 import TodoListStats from '@/components/TodoListStats'
 import TodoListStats2 from '@/components/TodoListStats2'
 import { todoListState } from '@/store/atom'
@@ -16,9 +17,7 @@ const TodoList = () => {
       <TodoListStats2 />
       <AddTodoItem />
       {todoList.map((todo) => (
-        <div key={todo.id}>
-          {todo.id}: {todo.title}
-        </div>
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </div>
   )
