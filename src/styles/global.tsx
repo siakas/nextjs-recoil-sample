@@ -2,7 +2,9 @@ import { css, Global } from '@emotion/react'
 import { colord } from 'colord'
 import { map } from 'lodash-es'
 import { colors } from '@/styles'
-import 'sanitize.css'
+
+// Chakra UI を読み込むため 既存のリセット CSS を無効化
+// import 'sanitize.css'
 
 const toRgbValues = (hex: string) => {
   const rgba = colord(hex).toRgb()

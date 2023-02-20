@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ChangeEvent } from 'react'
+import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import { useSetRecoilState } from 'recoil'
 import { todoListState } from '@/store/atom'
 
@@ -31,16 +31,26 @@ const AddTodoItem = () => {
   }
 
   return (
-    <div style={{ margin: '1em 0' }}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setTitle(e.target.value)
-        }}
-      />
-      <button onClick={addTodo}>Add</button>
-    </div>
+    <Box my={5}>
+      <Flex gap={2}>
+        <Input
+          placeholder="ToDoを入力してください"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value)
+          }}
+          width="auto"
+        />
+        <Button
+          onClick={addTodo}
+          bgColor="teal"
+          color="white"
+          _hover={{ opacity: 0.8 }}
+        >
+          Add
+        </Button>
+      </Flex>
+    </Box>
   )
 }
 
