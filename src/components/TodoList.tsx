@@ -1,3 +1,4 @@
+import { Heading, Stack } from '@chakra-ui/react'
 import { useRecoilValue } from 'recoil'
 import AddTodoItem from '@/components/AddTodoItem'
 import TodoItem from '@/components/TodoItem'
@@ -12,13 +13,17 @@ const TodoList = () => {
 
   return (
     <div>
-      <h1>Recoil による ToDo アプリ</h1>
+      <Heading as="h2" my={4}>
+        Recoil による ToDo アプリ
+      </Heading>
       <TodoListStats />
       <TodoListStats2 />
       <AddTodoItem />
-      {todoList.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      <Stack>
+        {todoList.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+      </Stack>
     </div>
   )
 }

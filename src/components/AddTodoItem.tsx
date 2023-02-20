@@ -34,19 +34,13 @@ const AddTodoItem = () => {
     <Box my={5}>
       <Flex gap={2}>
         <Input
-          placeholder="ToDoを入力してください"
+          placeholder={`${id + 1}件目のToDoを入力します`}
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
           }}
-          width="auto"
         />
-        <Button
-          onClick={addTodo}
-          bgColor="teal"
-          color="white"
-          _hover={{ opacity: 0.8 }}
-        >
+        <Button onClick={addTodo} colorScheme="telegram">
           Add
         </Button>
       </Flex>

@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { Box } from '@chakra-ui/react'
 
 type Props = {
   todo: {
@@ -10,9 +11,15 @@ type Props = {
 
 const TodoItem: FC<Props> = ({ todo }) => {
   return (
-    <div key={todo.id}>
+    <Box
+      key={todo.id}
+      data-id={todo.id}
+      bg="telegram.50"
+      p={4}
+      borderRadius={4}
+    >
       {todo.id}: {todo.title}
-    </div>
+    </Box>
   )
 }
 
