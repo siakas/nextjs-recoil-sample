@@ -17,10 +17,9 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
 
   // アイテム削除のメソッドを定義
   const removeItem = () => {
-    // 削除ボタンをクリックしたコンポーネントの id と一致する todoList 内のアイテムのインデックスを取得
+    // 削除ボタンをクリックしたコンポーネントの id と一致する todoList 内のアイテムのインデックスを取得し、
+    // インデックス値の一致するアイテム以外でフィルタリングしてあらたな配列を生成
     const index = todoList.findIndex((listItem) => listItem.id === todo.id)
-
-    // todo の配列から削除ボタンをクリックしたコンポーネントのインデックスと一致しないものだけをフィルタリング
     const newTodoList = todoList.filter((n, i) => i !== index)
 
     // todoList へのセッター関数であらたな配列を設定
