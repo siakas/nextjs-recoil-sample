@@ -30,7 +30,6 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
   // ToDo: プロパティを切り替えるだけなのに、配列の再生成が必要？ スマートな方法を検討する
   const toggleItemCompletion = () => {
     const index = todoList.findIndex((listItem) => listItem.id === todo.id)
-    // console.log(todo.title, index)
     const newTodoList = [
       ...todoList.slice(0, index),
       {

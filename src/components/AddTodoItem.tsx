@@ -22,7 +22,7 @@ const AddTodoItem = () => {
       ...oldTodoList,
       {
         id,
-        title,
+        title: title || 'デフォルトテキスト',
         isComplete: false,
       },
     ])
