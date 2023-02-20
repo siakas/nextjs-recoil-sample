@@ -20,17 +20,15 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
     // 削除ボタンをクリックしたコンポーネントの id と一致する todoList 内のアイテムのインデックスを取得
     const index = todoList.findIndex((listItem) => listItem.id === todo.id)
 
-    // インデックス番号を利用して、自分を除いた配列をあらたに作成
-    const newTodoList = [
-      ...todoList.slice(0, index),
-      ...todoList.slice(index + 1),
-    ]
+    // todo の配列から削除ボタンをクリックしたコンポーネントのインデックスと一致しないものだけをフィルタリング
+    const newTodoList = todoList.filter((n, i) => i !== index)
 
     // todoList へのセッター関数であらたな配列を設定
     setTodoList(newTodoList)
   }
 
   // アイテムのステータス切り替えのメソッドを定義
+  // ToDo: プロパティを切り替えるだけなのに、配列の再生成が必要？ スマートな方法を検討する
   const toggleItemCompletion = () => {
     const index = todoList.findIndex((listItem) => listItem.id === todo.id)
     // console.log(todo.title, index)
@@ -53,7 +51,7 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
         p={2}
         borderRadius={4}
         w="100%"
-        textDecoration={todo.isComplete ? 'line-through' : ''}
+        textDecoration={todo.isComplete ? 'line-through' : ''} // isComplete が true なら text-decoration を有効化
       >
         {index}: {todo.title}（id: {todo.id}）
       </Box>
