@@ -20,8 +20,8 @@ const TodoList = () => {
       <TodoListStats2 />
       <AddTodoItem />
       <Stack>
-        {todoList.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+        {todoList.map((todo, index) => (
+          <TodoItem key={todo.id} todo={todo} index={index} />
         ))}
       </Stack>
     </div>
