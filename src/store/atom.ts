@@ -11,3 +11,9 @@ export const todoListState = atom({
     },
   ],
 })
+
+// タスク表示の絞り込み用のキーワードを定義
+export const todoListFilterState = atom({
+  key: 'todoListFilterState',
+  default: 'すべて',
+})

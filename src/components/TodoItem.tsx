@@ -53,7 +53,10 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
       >
         {index}: {todo.title}（id: {todo.id}）
       </Box>
-      <Button colorScheme="telegram" onClick={toggleItemCompletion}>
+      <Button
+        onClick={toggleItemCompletion}
+        colorScheme={todo.isComplete ? 'gray' : 'telegram'}
+      >
         {todo.isComplete ? '取消' : '完了'}
       </Button>
       <Button colorScheme="red" onClick={removeItem}>

@@ -1,5 +1,5 @@
 import { selector } from 'recoil'
-import { todoListState } from '@/store/atom'
+import { todoListFilterState, todoListState } from '@/store/atom'
 
 // selector は atom の状態を操作して別の処理をおこなう
 // ここでは todoListState の配列内のオブジェクトの数を取得して返している
@@ -16,6 +16,24 @@ export const todoListStatsState = selector({
       totalNum,
       totalCompletedNum,
       totalUncompletedNum,
+    }
+  },
+})
+
+// todoListFilterState の値に応じて、todoListState の内容をフィルタリングして返すセレクタ
+export const filteredTodoListState = selector({
+  key: 'filteredTodoListState',
+  get: ({ get }) => {
+    const filter = get(todoListFilterState)
+    const list = get(todoListState)
+
+    switch (filter) {
+      case '完了':
+        return list.filter((item) => item.isComplete)
+      case '未完了':
+        return list.filter((item) => !item.isComplete)
+      default:
+        return list
     }
   },
 })
