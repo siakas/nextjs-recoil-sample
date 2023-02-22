@@ -31,7 +31,7 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
       ...todoList.slice(0, index),
       {
         ...todo,
-        isComplete: !todo.isCompleted,
+        isCompleted: !todo.isCompleted,
       },
       ...todoList.slice(index + 1),
     ]
