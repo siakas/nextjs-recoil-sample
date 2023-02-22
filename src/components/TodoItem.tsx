@@ -33,7 +33,7 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
     <Flex gap={2}>
       <Box
         data-id={todo.id}
-        bg="telegram.50"
+        bg={todo.isCompleted ? 'gray.50' : 'telegram.50'}
         p={2}
         borderRadius={4}
         w="100%"
