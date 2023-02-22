@@ -1,11 +1,11 @@
 import { Heading, Stack } from '@chakra-ui/react'
 import { useRecoilValue } from 'recoil'
+import { filteredTodoListState } from '@/store/selector'
 import AddTodoItem from '@/components/AddTodoItem'
 import TodoItem from '@/components/TodoItem'
 import TodoListFilter from '@/components/TodoListFilter'
 import TodoListStats from '@/components/TodoListStats'
 import TodoListStats2 from '@/components/TodoListStats2'
-import { filteredTodoListState } from '@/store/selector'
 
 const TodoList = () => {
   // 定義した atom や selector の値は useRecoilValue() で取得する

@@ -13,28 +13,19 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
 
   // アイテム削除のメソッドを定義
-  const removeItem = () => {
-    // 削除ボタンをクリックしたコンポーネントの id と一致する todoList 内のアイテムのインデックスを取得し、
-    // インデックス値の一致するアイテム以外でフィルタリングしてあらたな配列を生成
-    const index = todoList.findIndex((listItem) => listItem.id === todo.id)
-    const newTodoList = todoList.filter((n, i) => i !== index)
-
-    // todoList へのセッター関数であらたな配列を設定
-    setTodoList(newTodoList)
+  const removeTodo = (id: number) => {
+    // todoList へのセッター関数で、引数の id と一致しない todo をフィルタリングした配列を設定
+    setTodoList(todoList.filter((todo) => todo.id !== id))
   }
 
-  // アイテムのステータス切り替えのメソッドを定義
-  // ToDo: プロパティを切り替えるだけなのに、配列の再生成が必要？ スマートな方法を検討する
-  const toggleItemCompletion = () => {
-    const index = todoList.findIndex((listItem) => listItem.id === todo.id)
-    const newTodoList = [
-      ...todoList.slice(0, index),
-      {
-        ...todo,
-        isCompleted: !todo.isCompleted,
-      },
-      ...todoList.slice(index + 1),
-    ]
+  // todo の isCompleted プロパティを切り替えるメソッドを定義
+  const toggleTodoComplete = (id: number) => {
+    // map() を使ってすべての todo を走査し、
+    // 引数 id と一致する todo の isComplted プロパティを反転させて、あらたな配列を生成し、
+    // setTodoList で再設定する
+    const newTodoList = todoList.map((todo) =>
+      todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
+    )
     setTodoList(newTodoList)
   }
 
@@ -48,15 +39,22 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
         w="100%"
         textDecoration={todo.isCompleted ? 'line-through' : ''} // isCompleted が true なら text-decoration を有効化
       >
-        {index}: {todo.title}（id: {todo.id}）
+        {index}: {todo.title}（id: {todo.id} / userId: {todo.userId}）
       </Box>
       <Button
-        onClick={toggleItemCompletion}
+        onClick={() => {
+          toggleTodoComplete(todo.id)
+        }}
         colorScheme={todo.isCompleted ? 'gray' : 'telegram'}
       >
         {todo.isCompleted ? '取消' : '完了'}
       </Button>
-      <Button colorScheme="red" onClick={removeItem}>
+      <Button
+        colorScheme="red"
+        onClick={() => {
+          removeTodo(todo.id)
+        }}
+      >
         削除
       </Button>
     </Flex>

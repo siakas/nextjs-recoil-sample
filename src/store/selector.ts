@@ -1,11 +1,12 @@
 import { selector } from 'recoil'
 import { todoListFilterState, todoListState } from '@/store/atom'
+import { SelectorKeys } from '@/store/recoilKeys'
 
 // selector は atom の状態を操作して別の処理をおこなう
 // ここでは todoListState の配列内のオブジェクトの数を取得して返している
 // selector では初期値の設定はおこなわない
 export const todoListStatsState = selector({
-  key: 'todoListStatsState',
+  key: SelectorKeys.TODO_LIST_STATS_STATE,
   get: ({ get }) => {
     const todoList = get(todoListState)
     const totalNum = todoList.length
@@ -20,9 +21,22 @@ export const todoListStatsState = selector({
   },
 })
 
+// atom の `todoListState` に格納されている todo の件数をもとに、
+// userId を件数 + 2 を割り当てる
+export const userIdState = selector({
+  key: SelectorKeys.USER_ID_STATE,
+  get: ({ get }) => {
+    const userId = get(todoListState).length
+      ? get(todoListState).slice(-1)[0].userId
+      : 1
+
+    return userId
+  },
+})
+
 // todoListFilterState の値に応じて、todoListState の内容をフィルタリングして返すセレクタ
 export const filteredTodoListState = selector({
-  key: 'filteredTodoListState',
+  key: SelectorKeys.FILTERED_TODO_LIST_STATE,
   get: ({ get }) => {
     const filter = get(todoListFilterState)
     const list = get(todoListState)
