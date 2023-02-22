@@ -1,7 +1,5 @@
-import axios from 'axios'
 import { selector } from 'recoil'
 import { todoListFilterState, todoListState } from '@/store/atom'
-import type { Todo } from '@/types/todo'
 
 // selector は atom の状態を操作して別の処理をおこなう
 // ここでは todoListState の配列内のオブジェクトの数を取得して返している
@@ -11,7 +9,7 @@ export const todoListStatsState = selector({
   get: ({ get }) => {
     const todoList = get(todoListState)
     const totalNum = todoList.length
-    const totalCompletedNum = todoList.filter((item) => item.isComplete).length
+    const totalCompletedNum = todoList.filter((item) => item.isCompleted).length
     const totalUncompletedNum = totalNum - totalCompletedNum
 
     return {
@@ -31,9 +29,9 @@ export const filteredTodoListState = selector({
 
     switch (filter) {
       case '完了':
-        return list.filter((item) => item.isComplete)
+        return list.filter((item) => item.isCompleted)
       case '未完了':
-        return list.filter((item) => !item.isComplete)
+        return list.filter((item) => !item.isCompleted)
       default:
         return list
     }
@@ -41,13 +39,13 @@ export const filteredTodoListState = selector({
 })
 
 // selector を用いた API データの取得と格納
-export const FetchedTodoList = selector({
-  key: 'FetchedTodoList',
-  get: async ({ get }) => {
-    const res = await axios.get<Todo[]>(
-      'https://jsonplaceholder.typicode.com/todos'
-    )
+// export const FetchedTodoList = selector({
+//   key: 'FetchedTodoList',
+//   get: async ({ get }) => {
+//     const res = await axios.get<Todo[]>(
+//       'https://jsonplaceholder.typicode.com/todos'
+//     )
 
-    return res.data
-  },
-})
+//     return res.data
+//   },
+// })

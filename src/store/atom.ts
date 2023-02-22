@@ -5,9 +5,10 @@ export const todoListState = atom({
   key: 'todoListState', // 一意となる名前
   default: [
     {
+      userId: 1,
       id: 0,
       title: 'メール送信',
-      isComplete: false,
+      isCompleted: false,
     },
   ],
 })

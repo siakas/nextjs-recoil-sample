@@ -6,6 +6,7 @@ import { todoListState } from '@/store/atom'
 const AddTodoItem = () => {
   const [title, setTitle] = useState<string>('')
   const [id, setId] = useState<number>(1)
+  const [userId, setUserId] = useState<number>(1)
 
   // 定義した atom の値を更新するのは useRecoilState() でおこなう
   // useRecoilState() は atom の値とセッター関数が返される
@@ -21,13 +22,15 @@ const AddTodoItem = () => {
     setTodoList((oldTodoList) => [
       ...oldTodoList,
       {
+        userId,
         id,
         title: title || 'デフォルトテキスト',
-        isComplete: false,
+        isCompleted: false,
       },
     ])
     setTitle('')
     setId(() => id + 1)
+    setUserId(() => userId + 1)
   }
 
   return (

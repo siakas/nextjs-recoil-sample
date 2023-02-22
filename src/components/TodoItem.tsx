@@ -2,13 +2,10 @@ import type { FC } from 'react'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '@/store/atom'
+import type { Todo } from '@/types/todo'
 
 type Props = {
-  todo: {
-    id: number
-    title: string
-    isComplete: boolean
-  }
+  todo: Todo
   index: number
 }
 
@@ -34,7 +31,7 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
       ...todoList.slice(0, index),
       {
         ...todo,
-        isComplete: !todo.isComplete,
+        isComplete: !todo.isCompleted,
       },
       ...todoList.slice(index + 1),
     ]
@@ -49,15 +46,15 @@ const TodoItem: FC<Props> = ({ todo, index }) => {
         p={2}
         borderRadius={4}
         w="100%"
-        textDecoration={todo.isComplete ? 'line-through' : ''} // isComplete が true なら text-decoration を有効化
+        textDecoration={todo.isCompleted ? 'line-through' : ''} // isCompleted が true なら text-decoration を有効化
       >
         {index}: {todo.title}（id: {todo.id}）
       </Box>
       <Button
         onClick={toggleItemCompletion}
-        colorScheme={todo.isComplete ? 'gray' : 'telegram'}
+        colorScheme={todo.isCompleted ? 'gray' : 'telegram'}
       >
-        {todo.isComplete ? '取消' : '完了'}
+        {todo.isCompleted ? '取消' : '完了'}
       </Button>
       <Button colorScheme="red" onClick={removeItem}>
         削除
