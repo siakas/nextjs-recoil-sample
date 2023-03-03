@@ -8,34 +8,59 @@ import {
   InputGroup,
   InputLeftAddon,
   Stack,
+  Switch,
 } from '@chakra-ui/react'
-import { MdAddCircle, MdCheckCircle, MdRemoveCircle } from 'react-icons/md'
+import { MdAddCircle, MdRemoveCircle } from 'react-icons/md'
 import type { Todo } from '@/types/todo'
 
 type Props = {
   todos: Todo[]
+  addTodo: any
 }
 
-const TodoPresenter: FC<Props> = ({ todos }) => {
+const TodoPresenter: FC<Props> = ({ todos, addTodo }) => {
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
+
+  const sendTodo = () => {
+    addTodo(title, content)
+    setTitle('')
+    setContent('')
+  }
 
   return (
     <>
       <Flex gap={4}>
         <InputGroup>
           <InputLeftAddon>タイトル</InputLeftAddon>
-          <Input type="text" minWidth="15em" />
+          <Input
+            type="text"
+            minWidth="15em"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value)
+            }}
+          />
         </InputGroup>
         <InputGroup>
           <InputLeftAddon>内容</InputLeftAddon>
-          <Input type="text" minWidth="15em" />
+          <Input
+            type="text"
+            minWidth="15em"
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value)
+            }}
+          />
         </InputGroup>
         <InputGroup>
           <Button
             colorScheme="telegram"
             leftIcon={<MdAddCircle />}
             borderRadius="full"
+            onClick={() => {
+              sendTodo()
+            }}
           >
             追加
           </Button>
@@ -45,63 +70,21 @@ const TodoPresenter: FC<Props> = ({ todos }) => {
       <Divider my={6} />
 
       <Stack>
-        <Flex gap={4}>
-          <Box bg="gray.50" p={2} borderRadius={4} w="100%">
-            テキストテキスト
-          </Box>
-          <Button
-            leftIcon={<MdCheckCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            完了
-          </Button>
-          <Button
-            leftIcon={<MdRemoveCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            削除
-          </Button>
-        </Flex>
-        <Flex gap={4}>
-          <Box bg="gray.50" p={2} borderRadius={4} w="100%">
-            テキストテキスト
-          </Box>
-          <Button
-            leftIcon={<MdCheckCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            完了
-          </Button>
-          <Button
-            leftIcon={<MdRemoveCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            削除
-          </Button>
-        </Flex>
-        <Flex gap={4}>
-          <Box bg="gray.50" p={2} borderRadius={4} w="100%">
-            テキストテキスト
-          </Box>
-          <Button
-            leftIcon={<MdCheckCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            完了
-          </Button>
-          <Button
-            leftIcon={<MdRemoveCircle />}
-            borderRadius="full"
-            flexShrink={0}
-          >
-            削除
-          </Button>
-        </Flex>
+        {todos.map((todo) => (
+          <Flex gap={4} key={todo.id} alignItems="center">
+            <Switch isChecked={!!todo.isCompleted} />
+            <Box bg="gray.50" p={2} borderRadius={4} w="100%">
+              {todo.id}: 【{todo.title}】{todo.content}
+            </Box>
+            <Button
+              leftIcon={<MdRemoveCircle />}
+              borderRadius="full"
+              flexShrink={0}
+            >
+              削除
+            </Button>
+          </Flex>
+        ))}
       </Stack>
     </>
   )

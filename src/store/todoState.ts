@@ -15,7 +15,7 @@ export const todosState = atom({
       id: 2,
       title: 'テスト2',
       content: 'テスト2の内容',
-      isCompleted: false,
+      isCompleted: true,
     },
   ] as Todo[],
 })
